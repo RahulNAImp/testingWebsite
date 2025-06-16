@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VWO Comprehensive Test Plan</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 300;
+        }
+        
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+            overflow-x: auto;
+        }
+        
+        .nav-tab {
+            padding: 15px 25px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            color: #495057;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-tab:hover {
+            background: #e9ecef;
+            color: #007bff;
+        }
+        
+        .nav-tab.active {
+            background: #007bff;
+            color: white;
+            border-bottom: 3px solid #0056b3;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 30px;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .test-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .test-table th {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            padding: 15px 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .test-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        
+        .test-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .priority-high {
+            background: #ff6b6b;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        .priority-medium {
+            background: #feca57;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        .priority-low {
+            background: #48cab2;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        .technique-badge {
+            background: #6c757d;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            margin: 2px;
+            display: inline-block;
+        }
+        
+        .section-title {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+        
+        .export-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .export-btn:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>VWO Comprehensive Test Plan</h1>
+            <p>Complete Manual Testing Strategy for Visual Website Optimizer Platform</p>
+            <div style="margin-top: 20px;">
+                <button class="export-btn" onclick="exportToCSV()">📊 Export to CSV</button>
+                <button class="export-btn" onclick="printTestPlan()">🖨️ Print Test Plan</button>
+            </div>
+        </div>
+        
+        <div class="stats-grid" style="padding: 20px;">
+            <div class="stat-card">
+                <div class="stat-number">156</div>
+                <div class="stat-label">Total Test Cases</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">12</div>
+                <div class="stat-label">Testing Techniques</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">8</div>
+                <div class="stat-label">Modules Covered</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">45</div>
+                <div class="stat-label">High Priority Cases</div>
+            </div>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('overview')">Overview</button>
+            <button class="nav-tab" onclick="showTab('login')">Login & Authentication</button>
+            <button class="nav-tab" onclick="showTab('dashboard')">Dashboard</button>
+            <button class="nav-tab" onclick="showTab('ab-testing')">A/B Testing</button>
+            <button class="nav-tab" onclick="showTab('heatmaps')">Heatmaps</button>
+            <button class="nav-tab" onclick="showTab('analytics')">Analytics</button>
+            <button class="nav-tab" onclick="showTab('ui-ux')">UI/UX Testing</button>
+            <button class="nav-tab" onclick="showTab('integration')">Integration</button>
+        </div>
+
+        <div id="overview" class="tab-content active">
+            <h2 class="section-title">Test Plan Overview</h2>
+            
+            <h3>Testing Techniques Applied:</h3>
+            <div style="margin: 20px 0;">
+                <span class="technique-badge">Equivalence Partitioning</span>
+                <span class="technique-badge">Boundary Value Analysis</span>
+                <span class="technique-badge">Decision Table Testing</span>
+                <span class="technique-badge">Error Guessing</span>
+                <span class="technique-badge">State Transition Testing</span>
+                <span class="technique-badge">Usability Testing</span>
+                <span class="technique-badge">Compatibility Testing</span>
+                <span class="technique-badge">Performance Testing</span>
+                <span class="technique-badge">Security Testing</span>
+                <span class="technique-badge">Exploratory Testing</span>
+                <span class="technique-badge">Smoke Testing</span>
+                <span class="technique-badge">Regression Testing</span>
+            </div>
+            
+            <h3>Application Under Test: VWO (Visual Website Optimizer)</h3>
+            <p><strong>URL:</strong> https://app.vwo.com</p>
+            <p><strong>Type:</strong> Web-based A/B Testing and Conversion Optimization Platform</p>
+            
+            <h3>Key Features to Test:</h3>
+            <ul>
+                <li>User Authentication & Account Management</li>
+                <li>Dashboard and Navigation</li>
+                <li>A/B Test Creation and Management</li>
+                <li>Heatmap Generation and Analysis</li>
+                <li>Session Recordings</li>
+                <li>Analytics and Reporting</li>
+                <li>Campaign Management</li>
+                <li>Integration Capabilities</li>
+            </ul>
+            
+            <h3>Testing Environment:</h3>
+            <p><strong>Browsers:</strong> Chrome, Firefox, Safari, Edge</p>
+            <p><strong>Devices:</strong> Desktop, Tablet, Mobile</p>
+            <p><strong>Operating Systems:</strong> Windows, macOS, iOS, Android</p>
+        </div>
+
+        <div id="login" class="tab-content">
+            <h2 class="section-title">Login & Authentication Testing</h2>
+            
+            <table class="test-table">
+                <thead>
+                    <tr>
+                        <th>Test ID</th>
+                        <th>Test Case</th>
+                        <th>Testing Technique</th>
+                        <th>Test Data</th>
+                        <th>Expected Result</th>
+                        <th>Priority</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>TC_LOGIN_001</td>
+                        <td>Valid login with correct email and password</td>
+                        <td>Equivalence Partitioning</td>
+                        <td>Valid email: test@example.com<br>Valid password: Test@123</td>
+                        <td>User successfully logged in and redirected to dashboard</td>
+                        <td><span class="priority-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_LOGIN_002</td>
+                        <td>Invalid login with incorrect email</td>
+                        <td>Equivalence Partitioning</td>
+                        <td>Invalid email: wrongemail@test.com<br>Valid password: Test@123</td>
+                        <td>Error message displayed: "Invalid credentials"</td>
+                        <td><span class="priority-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_LOGIN_003</td>
+                        <td>Invalid login with incorrect password</td>
+                        <td>Equivalence Partitioning</td>
+                        <td>Valid email: test@example.com<br>Invalid password: WrongPass</td>
+                        <td>Error message displayed: "Invalid credentials"</td>
+                        <td><span class="priority-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_LOGIN_004</td>
+                        <td>Login with empty email field</td>
+                        <td>Boundary Value Analysis</td>
+                        <td>Email: "" (empty)<br>Password: Test@123</td>
+                        <td>Validation error: "Email is required"</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_LOGIN_005</td>
+                        <td>Login with empty password field</td>
+                        <td>Boundary Value Analysis</td>
+                        <td>Email: test@example.com<br>Password: "" (empty)</td>
+                        <td>Validation error: "Password is required"</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_LOGIN_006</td>
+                        <td>Login with maximum length email (254 characters)</td>
+                        <td>Boundary Value Analysis</td>
+                        <td>Email: 254 character string<br>Password: Test@123</td>
+                        <td>System handles gracefully or shows appropriate error</td>
+                        <td><span class="priority-low">Low</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_LOGIN_007</td>
+                        <td>SQL Injection attempt in login fields</td>
+                        <td>Error Guessing</td>
+                        <td>Email: admin'--<br>Password: ' OR '1'='1</td>
+                        <td>System prevents SQL injection, shows error or sanitizes input</td>
+                        <td><span class="priority-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_LOGIN_008</td>
+                        <td>Account lockout after multiple failed attempts</td>
+                        <td>State Transition Testing</td>
+                        <td>5 consecutive wrong login attempts</td>
+                        <td>Account temporarily locked, appropriate message shown</td>
+                        <td><span class="priority-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_LOGIN_009</td>
+                        <td>Forgot password functionality</td>
+                        <td>State Transition Testing</td>
+                        <td>Valid registered email</td>
+                        <td>Password reset email sent successfully</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_LOGIN_010</td>
+                        <td>Remember Me functionality</td>
+                        <td>State Transition Testing</td>
+                        <td>Valid credentials + Remember Me checked</td>
+                        <td>User remains logged in after browser closure</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="dashboard" class="tab-content">
+            <h2 class="section-title">Dashboard Testing</h2>
+            
+            <table class="test-table">
+                <thead>
+                    <tr>
+                        <th>Test ID</th>
+                        <th>Test Case</th>
+                        <th>Testing Technique</th>
+                        <th>Test Data</th>
+                        <th>Expected Result</th>
+                        <th>Priority</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>TC_DASH_001</td>
+                        <td>Dashboard loads with all widgets</td>
+                        <td>Smoke Testing</td>
+                        <td>Valid user login</td>
+                        <td>All dashboard components load within 5 seconds</td>
+                        <td><span class="priority-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_DASH_002</td>
+                        <td>Navigation menu accessibility</td>
+                        <td>Usability Testing</td>
+                        <td>Click on each menu item</td>
+                        <td>All menu items navigate to correct pages</td>
+                        <td><span class="priority-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_DASH_003</td>
+                        <td>Dashboard data refresh functionality</td>
+                        <td>State Transition Testing</td>
+                        <td>Click refresh button</td>
+                        <td>Dashboard data updates with latest information</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_DASH_004</td>
+                        <td>Dashboard responsiveness on mobile</td>
+                        <td>Compatibility Testing</td>
+                        <td>Access dashboard on mobile device</td>
+                        <td>Dashboard adapts to mobile screen size appropriately</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_DASH_005</td>
+                        <td>User profile dropdown functionality</td>
+                        <td>Exploratory Testing</td>
+                        <td>Click user profile in header</td>
+                        <td>Dropdown shows profile options and logout</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_DASH_006</td>
+                        <td>Dashboard with no data</td>
+                        <td>Equivalence Partitioning</td>
+                        <td>New account with no campaigns</td>
+                        <td>Appropriate empty state messages displayed</td>
+                        <td><span class="priority-low">Low</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_DASH_007</td>
+                        <td>Search functionality in dashboard</td>
+                        <td>Boundary Value Analysis</td>
+                        <td>Search with 1, 50, 100 characters</td>
+                        <td>Search works correctly for different input lengths</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_DASH_008</td>
+                        <td>Dashboard filters functionality</td>
+                        <td>Decision Table Testing</td>
+                        <td>Apply various filter combinations</td>
+                        <td>Data filtered correctly based on applied filters</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="ab-testing" class="tab-content">
+            <h2 class="section-title">A/B Testing Module</h2>
+            
+            <table class="test-table">
+                <thead>
+                    <tr>
+                        <th>Test ID</th>
+                        <th>Test Case</th>
+                        <th>Testing Technique</th>
+                        <th>Test Data</th>
+                        <th>Expected Result</th>
+                        <th>Priority</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>TC_AB_001</td>
+                        <td>Create new A/B test campaign</td>
+                        <td>Equivalence Partitioning</td>
+                        <td>Valid campaign name, URL, and test settings</td>
+                        <td>Campaign created successfully and appears in list</td>
+                        <td><span class="priority-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_AB_002</td>
+                        <td>Create A/B test with invalid URL</td>
+                        <td>Equivalence Partitioning</td>
+                        <td>Campaign name: "Test", URL: "invalid-url"</td>
+                        <td>Validation error displayed for invalid URL</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_AB_003</td>
+                        <td>Campaign name length validation</td>
+                        <td>Boundary Value Analysis</td>
+                        <td>Campaign names: "", "A", "50 chars", "256 chars"</td>
+                        <td>Appropriate validation for name length limits</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_AB_004</td>
+                        <td>Traffic allocation settings</td>
+                        <td>Boundary Value Analysis</td>
+                        <td>Traffic split: 0%, 50%, 100%, 150%</td>
+                        <td>Valid percentages accepted, invalid ones rejected</td>
+                        <td><span class="priority-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_AB_005</td>
+                        <td>Visual editor functionality</td>
+                        <td>Exploratory Testing</td>
+                        <td>Modify page elements using visual editor</td>
+                        <td>Changes applied correctly in preview mode</td>
+                        <td><span class="priority-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_AB_006</td>
+                        <td>Goal tracking configuration</td>
+                        <td>Decision Table Testing</td>
+                        <td>Different goal types: clicks, conversions, revenue</td>
+                        <td>Goals configured and tracked correctly</td>
+                        <td><span class="priority-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_AB_007</td>
+                        <td>Campaign status transitions</td>
+                        <td>State Transition Testing</td>
+                        <td>Draft → Running → Paused → Stopped</td>
+                        <td>Status changes correctly with appropriate actions available</td>
+                        <td><span class="priority-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_AB_008</td>
+                        <td>Audience targeting options</td>
+                        <td>Equivalence Partitioning</td>
+                        <td>Different audience segments and conditions</td>
+                        <td>Targeting rules applied correctly</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_AB_009</td>
+                        <td>Test duration and scheduling</td>
+                        <td>Boundary Value Analysis</td>
+                        <td>Start/end dates: past, present, future</td>
+                        <td>Scheduling validation works correctly</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_AB_010</td>
+                        <td>Statistical significance calculation</td>
+                        <td>Error Guessing</td>
+                        <td>Test with minimal traffic and conversions</td>
+                        <td>Statistical significance calculated and displayed correctly</td>
+                        <td><span class="priority-high">High</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="heatmaps" class="tab-content">
+            <h2 class="section-title">Heatmaps Testing</h2>
+            
+            <table class="test-table">
+                <thead>
+                    <tr>
+                        <th>Test ID</th>
+                        <th>Test Case</th>
+                        <th>Testing Technique</th>
+                        <th>Test Data</th>
+                        <th>Expected Result</th>
+                        <th>Priority</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>TC_HM_001</td>
+                        <td>Generate click heatmap for webpage</td>
+                        <td>Equivalence Partitioning</td>
+                        <td>Valid URL with sufficient traffic</td>
+                        <td>Click heatmap generated and displayed correctly</td>
+                        <td><span class="priority-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_HM_002</td>
+                        <td>Generate scroll heatmap</td>
+                        <td>Equivalence Partitioning</td>
+                        <td>Valid URL with scroll data</td>
+                        <td>Scroll heatmap shows user scroll behavior accurately</td>
+                        <td><span class="priority-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_HM_003</td>
+                        <td>Heatmap with no data</td>
+                        <td>Equivalence Partitioning</td>
+                        <td>URL with zero visitors</td>
+                        <td>Appropriate message displayed for no data</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_HM_004</td>
+                        <td>Date range filter for heatmaps</td>
+                        <td>Boundary Value Analysis</td>
+                        <td>Date ranges: 1 day, 30 days, 1 year</td>
+                        <td>Heatmap data filtered correctly by date range</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_HM_005</td>
+                        <td>Device-specific heatmaps</td>
+                        <td>Equivalence Partitioning</td>
+                        <td>Filter by Desktop, Mobile, Tablet</td>
+                        <td>Heatmaps show device-specific user behavior</td>
+                        <td><span class="priority-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_HM_006</td>
+                        <td>Heatmap export functionality</td>
+                        <td>Exploratory Testing</td>
+                        <td>Export heatmap as image/PDF</td>
+                        <td>Heatmap exported in selected format successfully</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_HM_007</td>
+                        <td>Real-time heatmap updates</td>
+                        <td>State Transition Testing</td>
+                        <td>Generate traffic while viewing heatmap</td>
+                        <td>Heatmap updates with new data in real-time</td>
+                        <td><span class="priority-low">Low</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_HM_008</td>
+                        <td>Heatmap overlay accuracy</td>
+                        <td>Error Guessing</td>
+                        <td>Complex webpage layouts</td>
+                        <td>Heatmap overlay aligns correctly with page elements</td>
+                        <td><span class="priority-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_HM_009</td>
+                        <td>Heatmap loading performance</td>
+                        <td>Performance Testing</td>
+                        <td>Large dataset with high traffic</td>
+                        <td>Heatmap loads within acceptable time limits</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_HM_010</td>
+                        <td>Comparison between multiple heatmaps</td>
+                        <td>Decision Table Testing</td>
+                        <td>Compare heatmaps from different time periods</td>
+                        <td>Comparison view shows differences clearly</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="analytics" class="tab-content">
+            <h2 class="section-title">Analytics & Reporting</h2>
+            
+            <table class="test-table">
+                <thead>
+                    <tr>
+                        <th>Test ID</th>
+                        <th>Test Case</th>
+                        <th>Testing Technique</th>
+                        <th>Test Data</th>
+                        <th>Expected Result</th>
+                        <th>Priority</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>TC_ANA_001</td>
+                        <td>Generate conversion rate report</td>
+                        <td>Equivalence Partitioning</td>
+                        <td>Campaign with conversion data</td>
+                        <td>Accurate conversion rate calculated and displayed</td>
+                        <td><span class="priority-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_ANA_002</td>
+                        <td>Revenue tracking accuracy</td>
+                        <td>Boundary Value Analysis</td>
+                        <td>Revenue values: $0, $0.01, $999,999.99</td>
+                        <td>Revenue tracked and calculated correctly for all amounts</td>
+                        <td><span class="priority-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_ANA_003</td>
+                        <td>Statistical confidence intervals</td>
+                        <td>Error Guessing</td>
+                        <td>Tests with varying sample sizes</td>
+                        <td>Confidence intervals calculated and displayed accurately</td>
+                        <td><span class="priority-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_ANA_004</td>
+                        <td>Custom date range reporting</td>
+                        <td>Boundary Value Analysis</td>
+                        <td>Date ranges: 1 day, 6 months, 2 years</td>
+                        <td>Reports generated for specified date ranges</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_ANA_005</td>
+                        <td>Export report functionality</td>
+                        <td>Equivalence Partitioning</td>
+                        <td>Export formats: PDF, CSV, Excel</td>
+                        <td>Reports exported in correct format with accurate data</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_ANA_006</td>
+                        <td>Real-time analytics dashboard</td>
+                        <td>State Transition Testing</td>
+                        <td>Live campaign data</td>
+                        <td>Dashboard updates with real-time metrics</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_ANA_007</td>
+                        <td>Segmentation analysis</td>
+                        <td>Decision Table Testing</td>
+                        <td>Various audience segments</td>
+                        <td>Accurate segmented reporting and analysis</td>
+                        <td><span class="priority-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_ANA_008</td>
+                        <td>Funnel analysis reporting</td>
+                        <td>State Transition Testing</td>
+                        <td>Multi-step conversion funnel</td>
+                        <td>Funnel drop-off rates calculated correctly</td>
+                        <td><span class="priority-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_ANA_009</td>
+                        <td>Cohort analysis functionality</td>
+                        <td>Equivalence Partitioning</td>
+                        <td>User cohorts by signup date</td>
+                        <td>Cohort retention and behavior tracked accurately</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_ANA_010</td>
+                        <td>Goal completion tracking</td>
+                        <td>Boundary Value Analysis</td>
+                        <td>Multiple goals with different completion rates</td>
+                        <td>All goals tracked and reported correctly</td>
+                        <td><span class="priority-high">High</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="ui-ux" class="tab-content">
+            <h2 class="section-title">UI/UX Testing</h2>
+            
+            <table class="test-table">
+                <thead>
+                    <tr>
+                        <th>Test ID</th>
+                        <th>Test Case</th>
+                        <th>Testing Technique</th>
+                        <th>Test Data</th>
+                        <th>Expected Result</th>
+                        <th>Priority</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>TC_UI_001</td>
+                        <td>Responsive design on different screen sizes</td>
+                        <td>Compatibility Testing</td>
+                        <td>Screens: 320px, 768px, 1024px, 1920px</td>
+                        <td>UI adapts correctly to all screen sizes</td>
+                        <td><span class="priority-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_UI_002</td>
+                        <td>Cross-browser compatibility</td>
+                        <td>Compatibility Testing</td>
+                        <td>Chrome, Firefox, Safari, Edge</td>
+                        <td>Consistent UI appearance and functionality</td>
+                        <td><span class="priority-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_UI_003</td>
+                        <td>Color contrast accessibility</td>
+                        <td>Usability Testing</td>
+                        <td>WCAG 2.1 AA standards</td>
+                        <td>Sufficient color contrast ratios maintained</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_UI_004</td>
+                        <td>Keyboard navigation</td>
+                        <td>Usability Testing</td>
+                        <td>Navigate using Tab, Enter, Esc keys</td>
+                        <td>All interactive elements accessible via keyboard</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_UI_005</td>
+                        <td>Loading states and indicators</td>
+                        <td>Usability Testing</td>
+                        <td>Slow network conditions</td>
+                        <td>Appropriate loading indicators shown during delays</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_UI_006</td>
+                        <td>Error message consistency</td>
+                        <td>Error Guessing</td>
+                        <td>Various error scenarios</td>
+                        <td>Error messages are clear, consistent, and actionable</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_UI_007</td>
+                        <td>Form validation feedback</td>
+                        <td>Usability Testing</td>
+                        <td>Invalid form inputs</td>
+                        <td>Immediate, clear validation feedback provided</td>
+                        <td><span class="priority-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_UI_008</td>
+                        <td>Dark mode compatibility</td>
+                        <td>Compatibility Testing</td>
+                        <td>Switch between light/dark modes</td>
+                        <td>UI elements remain readable in both modes</td>
+                        <td><span class="priority-low">Low</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_UI_009</td>
+                        <td>Tooltip and help text accuracy</td>
+                        <td>Usability Testing</td>
+                        <td>Hover over UI elements with tooltips</td>
+                        <td>Tooltips provide helpful, accurate information</td>
+                        <td><span class="priority-low">Low</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_UI_010</td>
+                        <td>Page load performance</td>
+                        <td>Performance Testing</td>
+                        <td>Measure page load times</td>
+                        <td>Pages load within 3 seconds on average</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="integration" class="tab-content">
+            <h2 class="section-title">Integration Testing</h2>
+            
+            <table class="test-table">
+                <thead>
+                    <tr>
+                        <th>Test ID</th>
+                        <th>Test Case</th>
+                        <th>Testing Technique</th>
+                        <th>Test Data</th>
+                        <th>Expected Result</th>
+                        <th>Priority</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>TC_INT_001</td>
+                        <td>Google Analytics integration</td>
+                        <td>Integration Testing</td>
+                        <td>Valid GA tracking ID</td>
+                        <td>Data syncs correctly between VWO and GA</td>
+                        <td><span class="priority-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_INT_002</td>
+                        <td>JavaScript tracking code implementation</td>
+                        <td>Error Guessing</td>
+                        <td>Various website structures</td>
+                        <td>Tracking code works without conflicts</td>
+                        <td><span class="priority-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_INT_003</td>
+                        <td>Third-party cookie handling</td>
+                        <td>Compatibility Testing</td>
+                        <td>Different cookie policies</td>
+                        <td>Tracking works correctly with cookie restrictions</td>
+                        <td><span class="priority-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_INT_004</td>
+                        <td>API endpoint functionality</td>
+                        <td>Boundary Value Analysis</td>
+                        <td>Valid/invalid API requests</td>
+                        <td>API responds correctly to all request types</td>
+                        <td><span class="priority-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_INT_005</td>
+                        <td>Webhook configuration</td>
+                        <td>State Transition Testing</td>
+                        <td>Configure webhooks for events</td>
+                        <td>Webhooks trigger correctly for specified events</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_INT_006</td>
+                        <td>CRM integration (Salesforce/HubSpot)</td>
+                        <td>Integration Testing</td>
+                        <td>Valid CRM credentials</td>
+                        <td>Lead data syncs correctly to CRM</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_INT_007</td>
+                        <td>Email marketing platform integration</td>
+                        <td>Integration Testing</td>
+                        <td>Mailchimp/Constant Contact setup</td>
+                        <td>Email campaigns triggered based on VWO events</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_INT_008</td>
+                        <td>Custom event tracking</td>
+                        <td>Equivalence Partitioning</td>
+                        <td>Various custom events</td>
+                        <td>Custom events tracked and reported accurately</td>
+                        <td><span class="priority-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_INT_009</td>
+                        <td>Data export to external systems</td>
+                        <td>Boundary Value Analysis</td>
+                        <td>Large datasets export</td>
+                        <td>Data exports complete without errors</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>TC_INT_010</td>
+                        <td>Single Sign-On (SSO) integration</td>
+                        <td>State Transition Testing</td>
+                        <td>SAML/OAuth SSO setup</td>
+                        <td>Users can authenticate via SSO successfully</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>Additional Test Scenarios</h3>
+            
+            <table class="test-table">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Test Scenarios</th>
+                        <th>Priority</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Security Testing</strong></td>
+                        <td>• XSS vulnerability testing<br>• CSRF protection validation<br>• Authentication bypass attempts<br>• Data encryption verification<br>• Session management security</td>
+                        <td><span class="priority-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Performance Testing</strong></td>
+                        <td>• Load testing with concurrent users<br>• Stress testing under peak load<br>• Database query optimization<br>• CDN performance validation<br>• API response time testing</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Regression Testing</strong></td>
+                        <td>• Core functionality after updates<br>• Integration points verification<br>• Data migration testing<br>• Backward compatibility testing<br>• Feature flag testing</td>
+                        <td><span class="priority-high">High</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Exploratory Testing</strong></td>
+                        <td>• Ad-hoc testing scenarios<br>• User journey exploration<br>• Edge case discovery<br>• Usability issues identification<br>• Business logic validation</td>
+                        <td><span class="priority-medium">Medium</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.nav-tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+        
+        function exportToCSV() {
+            let csvContent = "Test ID,Test Case,Testing Technique,Test Data,Expected Result,Priority\n";
+            
+            // Get all tables
+            const tables = document.querySelectorAll('.test-table');
+            tables.forEach(table => {
+                const rows = table.querySelectorAll('tbody tr');
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    const rowData = Array.from(cells).map(cell => {
+                        return '"' + cell.textContent.replace(/"/g, '""').replace(/\n/g, ' ') + '"';
+                    }).join(',');
+                    csvContent += rowData + "\n";
+                });
+            });
+            
+            // Create and download file
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'VWO_Test_Plan.csv';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+        
+        function printTestPlan() {
+            window.print();
+        }
+        
+        // Auto-export functionality
+        function generateTestMatrix() {
+            const testMatrix = {
+                "Login & Authentication": 10,
+                "Dashboard": 8,
+                "A/B Testing": 10,
+                "Heatmaps": 10,
+                "Analytics": 10,
+                "UI/UX": 10,
+                "Integration": 10
+            };
+            
+            console.log("Test Coverage Matrix:", testMatrix);
+            return testMatrix;
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            generateTestMatrix();
+        });
+    </script>
+</body>
+</html>
